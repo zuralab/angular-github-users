@@ -18,7 +18,7 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
   public following: UserDataModel[] = [];
   public repository: UserRepositoryModel[] = [];
   displayedColumns: string[] = ['id', 'avatar', 'name'];
-  repoColumns: string[] = ['id','name'];
+  repoColumns: string[] = ['id', 'name'];
   followersSource: MatTableDataSource<any>;
   followingSource: MatTableDataSource<any>;
   repositorySource: MatTableDataSource<any>;
@@ -94,7 +94,6 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
       this.followingSource.paginator = this.followingPaginator;
     });
     this.API.getUserRepository(userName).subscribe((res: any) => {
-      console.log(res)
       let o = [];
       for (let i in res) {
         let item = new UserRepositoryModel();
@@ -106,7 +105,6 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
         o.push(item);
       }
       this.repository = o;
-      console.log( this.repository)
       this.repositorySource = new MatTableDataSource(this.repository);
       this.repositorySource.paginator = this.repositoryPaginator;
     });

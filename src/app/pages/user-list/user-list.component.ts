@@ -5,6 +5,7 @@ import {MatSort} from "@angular/material/sort";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {UserDataModel} from "../../models/UserDataModel";
+import {APIService} from "../../services/api.service";
 
 
 @Component({
@@ -30,7 +31,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
   public users: UserDataModel[] = [];
 
-  constructor(public httpClient: HttpClient, public router: Router) {
+  constructor(public httpClient: HttpClient, public router: Router, public API: APIService) {
     this.dataSource = new MatTableDataSource(this.users);
   }
 
@@ -53,8 +54,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   }
 
   public getUsers() {
-    let headers = new HttpHeaders().append('Authorization', 'token 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');
-    this.httpClient.get('https://api.github.com/users', {headers: headers}).subscribe((res: any) => {
+    this.API.getUsers().subscribe((res: any) => {
       for (let i in res) {
         let item = new UserDataModel();
         if (res.hasOwnProperty(i)) {
